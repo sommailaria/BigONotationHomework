@@ -48,8 +48,7 @@ public:
 
         for (std::size_t i = 0; i < teamPlayers.size(); i++)
         {
-            if (teamPlayers[i].position == Positions::goalkeeper) 
-           
+            if (teamPlayers[i].position == Positions::goalkeeper)
             {
                 keeperSkill = teamPlayers[i].skillsLevel; // assignment - constant time O(1)
             }
@@ -57,28 +56,29 @@ public:
 
         return keeperSkill; // Return statement - (O1)
     }
-}; 
+};
+
 // findkeeperSkill() -> O(n) where n is the number of players in teamPlayers
 
 class footballMatch
 {
 public:
-    int forwardAttacking(footballTeam& attacker, footballTeam& defender) 
+    int forwardAttacking(footballTeam& attacker, footballTeam& defender)
     {
         int keeperSkill = defender.findKeeperSkill(); //  O(n)
         int goalsCounter = 0; // Assignment -  O(1)
-      
+
         // O(n) - Loop runs for n attackers in teamPlayers
-        for (std::size_t i = 0; i < attacker.teamPlayers.size(); i++) 
+        for (std::size_t i = 0; i < attacker.teamPlayers.size(); i++)
         {
             attacker.teamPlayers[i].matchesPlayed++; // Increment - O(1)
 
             if (attacker.teamPlayers[i].position == Positions::forward) // Comparison - O(1)
             {
-                if (attacker.teamPlayers[i].skillsLevel >= 30)         // Comparison -  O(1)
+                if (attacker.teamPlayers[i].skillsLevel >= 30) // Comparison -  O(1)
                 {
-                    goalsCounter += 2;                                // increment -  O(1)
-                    attacker.teamPlayers[i].goalsScored += 2;      // increment -     O(1)
+                    goalsCounter += 2; // increment -  O(1)
+                    attacker.teamPlayers[i].goalsScored += 2; // increment -     O(1)
                 }
                 else if (keeperSkill < attacker.teamPlayers[i].skillsLevel) // Comparison -  O(1)
                 {
@@ -90,9 +90,10 @@ public:
 
         return goalsCounter; //  return statement - constant O(1)
     };
+
     // forwardAttacking() -> O(n) where n is the num of attackers in teamPLayers (if teams have same size)
 
-    void playMatch(footballTeam& teamA, footballTeam& teamB, referee& ref) 
+    void playMatch(footballTeam& teamA, footballTeam& teamB, referee& ref)
     {
         int teamAGoals = forwardAttacking(teamA, teamB); // forwardAttacking is O(n)
         int teamBGoals = forwardAttacking(teamB, teamA); // forwardAttacking is O(n)
@@ -117,13 +118,14 @@ public:
 
 // playMatch() = O(n)
 
-bool compareTeamPoints(const footballTeam& teamA, const footballTeam& teamB) 
+bool compareTeamPoints(const footballTeam& teamA, const footballTeam& teamB)
 {
     return teamA.points > teamB.points; // O(1)
-} 
+}
+
 // compareTeamPoints() = Constant O(1)
 
-void printStandings(const std::vector<footballTeam>& allTeams) 
+void printStandings(const std::vector<footballTeam>& allTeams)
 {
     std::cout << "------ Standings ------- \n"; // O(1)
 
@@ -132,10 +134,11 @@ void printStandings(const std::vector<footballTeam>& allTeams)
         std::cout << allTeams[i].teamName << std::endl; // O(1)
         std::cout << allTeams[i].points << std::endl; // O(1)
     }
-} 
+}
+
 // printStandings() = O(n) where n is the size of allTeams
 
-void printBestScorers(const std::vector<footballTeam>& allTeams) 
+void printBestScorers(const std::vector<footballTeam>& allTeams)
 {
     int bestGoals = 0; // O(1)
 
@@ -143,9 +146,9 @@ void printBestScorers(const std::vector<footballTeam>& allTeams)
     // m = number of players per team 
     // Nested loops: O(n * m)
 
-    for (std::size_t i = 0; i < allTeams.size(); i++) 
+    for (std::size_t i = 0; i < allTeams.size(); i++)
     {
-        for (std::size_t j = 0; j < allTeams[i].teamPlayers.size(); j++) 
+        for (std::size_t j = 0; j < allTeams[i].teamPlayers.size(); j++)
         {
             if (allTeams[i].teamPlayers[j].goalsScored > bestGoals) // O(1)
             {
@@ -153,16 +156,16 @@ void printBestScorers(const std::vector<footballTeam>& allTeams)
             }
         }
     }
+
     std::cout << "---------- Best Scorers: ---------" << std::endl; //  O(1)
 
     if (bestGoals > 0) //  O(1)
-      
     {
-      // Second time through the loop: O(n*m)
-      
-        for (std::size_t i = 0; i < allTeams.size(); i++)  
+        // Second time through the loop: O(n*m)
+
+        for (std::size_t i = 0; i < allTeams.size(); i++)
         {
-            for (std::size_t j = 0; j < allTeams[i].teamPlayers.size(); j++) 
+            for (std::size_t j = 0; j < allTeams[i].teamPlayers.size(); j++)
             {
                 if (allTeams[i].teamPlayers[j].goalsScored == bestGoals) // O(1)
                 {
@@ -182,10 +185,10 @@ void printBestScorers(const std::vector<footballTeam>& allTeams)
 
 int main()
 {
-    footballTeam snake = { "Team Snake" }; 
-    footballTeam ocelot = { "Team Ocelot" }; 
-    footballTeam cobraUnit = { "Team Cobra Unit" }; 
-    footballTeam foxHound = { "Team FoxHound" }; 
+    footballTeam snake = { "Team Snake" };
+    footballTeam ocelot = { "Team Ocelot" };
+    footballTeam cobraUnit = { "Team Cobra Unit" };
+    footballTeam foxHound = { "Team FoxHound" };
 
     footballPlayer nakedSnake = { "Naked Snake", 15, snake.teamName, Positions::forward };
     snake.teamPlayers.push_back(nakedSnake);
@@ -237,14 +240,13 @@ int main()
     // Nested loops together = O(n ^2) where n is num of teams
     for (std::size_t i = 0; i < allTeams.size(); i++) // O(n)
     {
-        for (std::size_t j = i + 1; j < allTeams.size(); j++) 
-                                                              
+        for (std::size_t j = i + 1; j < allTeams.size(); j++)
         {
-            printStandings(allTeams);                                            // O(n)
-            printBestScorers(allTeams);                                          // O(n * m) where m is num of players per team
-            newMatch.playMatch(allTeams[i], allTeams[j], majorZero);             // O(m)
-            std::cout << "Starting the match! " << std::endl;                     //  O(1)
-            std::cout << std::endl;                                               //  O(1)
+            printStandings(allTeams);                                // O(n)
+            printBestScorers(allTeams);                              // O(n * m) where m is num of players per team
+            newMatch.playMatch(allTeams[i], allTeams[j], majorZero); // O(m)
+            std::cout << "Starting the match! " << std::endl;         //  O(1)
+            std::cout << std::endl;                                   //  O(1)
         }
     }
 
@@ -260,3 +262,4 @@ int main()
     std::cout << "Major Zero has joined " << majorZero.joinedMatches << " matches. \n"; // O(1)
 
     return 0;
+}
